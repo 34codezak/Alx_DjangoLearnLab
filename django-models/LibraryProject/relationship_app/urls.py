@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import list_books, LibraryDetailView, register
+from .views import (list_books, admin_view, librarian_view, member_view, LibraryDetailView, register)
 from django.contrib.auth import views as auth_views
 from . import views #Import your custom views
 
