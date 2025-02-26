@@ -1,5 +1,5 @@
 from django.db import models
-from .managers import CustomUserManager
+from django.db import CustomUserManager
 from django.contrib.auth.models import AbstractUser
 
 class Book(models.Model):
@@ -11,6 +11,10 @@ class Book(models.Model):
         return self.title
 
 class CustomUser(AbstractUser):
-    date_of_birth = models.DateField(max_length=20)
-    profile_photo = models.ImageField()
+    date_of_birth = models.DateField(null=True, blank=True)
+    profile_photo = models.ImageField(upload_to='profile_photos', null=True, blank=True)
 
+    objects = CustomUserManager()
+    
+    def __str__(self):
+        return self.username
