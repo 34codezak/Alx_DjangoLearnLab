@@ -145,7 +145,7 @@ SECURE_BROWSER_XSS_FILTER = True # Set to True to enable the browser’s XSS fil
 X_FRAME_OPTIONS = 'DENY' #Set to “DENY” to prevent your site from being framed and protect against clickjacking.
 SECURE_CONTENT_TYPE_NOSNIFF = True  # Set to True to prevent browsers from MIME-sniffing a response away from the declared content-type.
 SECURE_SSL_REDIRECT = True #to redirect all non-HTTPS requests to HTTPS.
-SECURE_HSTS_SECONDS = 63072000 #to instruct browsers to only access the site via HTTPS for the specified time.
+SECURE_HSTS_SECONDS = 31536000 #to instruct browsers to only access the site via HTTPS for the specified time.
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True  #Set to True to include all subdomains in the HSTS policy and to allow preloading.
 SECURE_HSTS_PRELOAD = True #Set to True to include all subdomains in the HSTS policy and to allow preloading.
 
