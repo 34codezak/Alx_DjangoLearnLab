@@ -7,3 +7,8 @@ class Book(models.Model):
     
     def __str__(self):
         return self.title
+
+class CustomUser(AbstractUser):
+    date_of_birth = models.DateField(max_length=20)
+    profile_photo = models.ImageField()
+    
