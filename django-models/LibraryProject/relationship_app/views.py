@@ -11,7 +11,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('list_books')
+            return redirect('list_books') # Redirect to the list_books view after registration
         
     else:
         form = UserCreationForm()
