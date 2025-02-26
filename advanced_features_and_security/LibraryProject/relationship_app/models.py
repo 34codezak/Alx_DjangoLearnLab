@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from .managers import CustomUserManager
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
@@ -63,6 +64,8 @@ def save_user_profile(sender, instance, **kwargs):
 class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
     profile_photo = models.ImageField(upload_to='profile_photo/', null=True, blank=True)
+    
+    objects = CustomUserManager()
     
     def __str__(self):
         return self.username

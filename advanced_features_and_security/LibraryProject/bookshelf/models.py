@@ -14,6 +14,3 @@ class CustomUser(AbstractUser):
     date_of_birth = models.DateField(max_length=20)
     profile_photo = models.ImageField()
 
-class CustomUserManager(BaseUserManager):
-    create_user = models.Model.create_user()
-    create_superuser = models.Model.create_superuser()  
