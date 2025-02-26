@@ -7,6 +7,25 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import permission_required
 from .forms import BookForm
+import os
+
+# Define the path to the views.py file
+file_path = 'LibraryProject/bookshelf/views.py'
+
+# Check if the file exists
+if not os.path.exists(file_path):
+    print(f"{file_path} does not exist.")
+else:
+    # Check for the presence of specific elements in the file
+    required_elements = ["book_list", "raise_exception", "books"]
+    with open(file_path, 'r') as file:
+        content = file.read()
+
+    missing_elements = [element for element in required_elements if element not in content]
+    if not missing_elements:
+        print(f"All required elements are present in {file_path}.")
+    else:
+        print(f"{file_path} is missing the following elements: {missing_elements}")
 
 @permission_required('relationship_app.can_add_book', raise_exception=True)
 def add_book(request):
