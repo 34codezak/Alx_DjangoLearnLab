@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'rest_framework',
     'api',
+    "rest_framework.permissions.IsAuthenticated"
     'rest_framework.authtoken', # Add 'rest_framework.authtoken' to INSTALLED_APPS to enable token authentication
 ]
 
