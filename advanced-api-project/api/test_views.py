@@ -5,6 +5,7 @@ from api.models import Author, Book
 
 class BookAPITestCase(APITestCase):
     def setUp(self):
+        self.client.login()  # Log in the user
         self.author = Author.objects.create(name='Test Author')
         self.book = Book.objects.create(title='Test Book', publication_year=2023, author=self.author)
         self.list_url = reverse('book-list') # Use reverse() for better URL handling
