@@ -6,7 +6,8 @@ from rest_framework import generics
 from rest_framework import mixins
 from rest_framework import permissions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, IsAuthenticated
-from rest_framework.filters import DjangoFilterBackend, SearchFilter, OrderingFilter
+from rest_framework.filters import DjangoFilterBackend, SearchFilter
+from rest_framework.filters import OrderingFilter
 from django_filters import rest_framework
 
 #ListView: Retrieve a list of all books
