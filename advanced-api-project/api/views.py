@@ -16,7 +16,7 @@ class BookListView(generics.ListAPIView):
     serializer_class = BookSerializer
     filter_backends = [DjangoFilterBackend, OrderingFilter] # These are the filters applied to the view
     filters.OrderingFilter = ['title', 'author' 'publication_year']
-    search_fields = ['title', 'author__name']
+    filters.SearchFilter = ['title', 'author__name']
     ordering_fields = ['title', 'publication_year'] # These are the fields allowed for filtering and ordering
     
 #DetailView: Retrieve a single book by its ID
