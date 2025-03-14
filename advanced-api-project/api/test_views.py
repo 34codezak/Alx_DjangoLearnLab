@@ -38,3 +38,5 @@ class BookAPITestCase(APITestCase):
     def test_delete_book(self):
         response = self.client.delete(f'/books/{self.book.id}/')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        
+        return response.data
