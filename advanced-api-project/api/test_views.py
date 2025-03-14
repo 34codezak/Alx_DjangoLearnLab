@@ -19,3 +19,5 @@ class BookAPITestCase(APITestCase):
         self.client.logout()
         response = self.client.post(self.list_url, {'title': 'New Book', 'publication_year': 2024, 'author': self.author.id})
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        
+        return response.data
