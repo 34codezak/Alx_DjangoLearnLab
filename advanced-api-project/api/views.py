@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from .models import Book
 from .serializers import BookSerializer
-from rest_framework import viewsets, generics
+from rest_framework import viewsets
+from rest_framework import generics
+from rest_framework import mixins
+from rest_framework import permissions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, IsAuthenticated
 from rest_framework.filters import DjangoFilterBackend, SearchFilter, OrderingFilter
+from django_filters import rest_framework
 
 #ListView: Retrieve a list of all books
 class BookListView(generics.ListAPIView):
