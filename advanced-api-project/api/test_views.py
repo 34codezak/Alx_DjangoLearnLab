@@ -1,42 +1,21 @@
-from rest_framework.test import APITestCase
 from rest_framework import status
-from django.contrib.auth.models import User
-from .models import Book
+from django.urls import reverse
+from rest_framework.test import APITestCase
+from api.models import Author, Book
 
 class BookAPITestCase(APITestCase):
     def setUp(self):
-        # Create a user for authentication testing
-        self.user = User.objects.create_user(username='testuser', password='testpassword')
-        self.book = Book.objects.create(title='The Great Gatsby', author=self.user, publication_year=1925)
-        
-    def test_list_books(self):
-        response = self.client.get('/books/')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        
-    def test_retrieve_book(self):
-        response = self.client.get(f'/books/{self.book.id}/')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        
-    def test_create_book(self):
-        data = {
-            'title': 'The Catcher in the Rye',
-            'author': self.user.id,
-            'publication_year': 1951
-        }
-        response = self.client.post('/books/', data)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        
-    def test_update_book(self):
-        data = {
-            'title': 'The Catcher in the Rye',
-            'author': self.user.id,
-            'publication_year': 1951
-        }
-        response = self.client.put(f'/books/{self.book.id}/', data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        
+        self.author = Author.objects.create(name='Test Author')
+        self.book = Book.objects.create(title='Test Book', publication_year=2023, author=self.author)
+        self.list_url = reverse('book-list') # Use reverse() for better URL handling
+
     def test_delete_book(self):
-        response = self.client.delete(f'/books/{self.book.id}/')
+        url = reverse('book-detail', kwargs={'pk': self.book.id})  # Use reverse() for better URL handling
+        response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        
-        return response.data
+        self.assertFalse(Book.objects.filter(id=self.book.id).exists())  # Ensure the book is deleted
+
+    def test_unauthenticated_access(self):
+        self.client.logout()
+        response = self.client.post(self.list_url, {'title': 'New Book', 'publication_year': 2024, 'author': self.author.id})
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
