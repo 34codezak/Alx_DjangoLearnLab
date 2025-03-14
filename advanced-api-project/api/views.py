@@ -15,7 +15,7 @@ class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     filter_backends = [DjangoFilterBackend, OrderingFilter] # These are the filters applied to the view
-    filterset_fields = ['title', 'author' 'publication_year']
+    filters.OrderingFilter = ['title', 'author' 'publication_year']
     search_fields = ['title', 'author__name']
     ordering_fields = ['title', 'publication_year'] # These are the fields allowed for filtering and ordering
     
