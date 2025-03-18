@@ -76,7 +76,7 @@ WSGI_APPLICATION = "django_blog.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql", # Configuring the database to postgresql
+        "ENGINE": "django.db.backends.sqlite3", # Configuring the database to postgresql
         "NAME": "django_blog", # The database's name
         "USER": "Zak", # My postgresql username
         "PORT": '5432', # The default postgresql port
@@ -122,5 +122,17 @@ STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+TEMPLATES = [
+    {
+        'DIRS': [BASE_DIR/ 'templates'],
+    },
+]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
