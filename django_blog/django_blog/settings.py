@@ -76,7 +76,7 @@ WSGI_APPLICATION = "django_blog.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3", # Configuring the database to postgresql
+        "ENGINE": "django.db.backends.postgresql", # Configuring the database to postgresql
         "NAME": "django_blog", # The database's name
         "USER": "Zak", # My postgresql username
         "PORT": '5432', # The default postgresql port
@@ -137,5 +137,3 @@ TEMPLATES = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
