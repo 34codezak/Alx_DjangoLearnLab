@@ -10,6 +10,9 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
+def register(request):
+    return render(request, 'blog/register.html')
+
 @login_required
 def profile(request):
     if request.method == 'POST':
@@ -58,7 +61,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         post = self.get_object()
         return self.request.user == post.author
     
-class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class PostDeleteView(DeleteView):
     model = Post
     template_name = 'blog/post_confirm_delete.html' # Path to the template
     success_url = reverse_lazy('home')      
