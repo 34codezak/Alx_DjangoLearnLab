@@ -82,6 +82,21 @@ class PostDeleteView(DeleteView):
         post = self.get_object()
         return self.request.user == post.author
     
+class PostByTagListView(ListView):
+    model = Post
+    template_name = 'blog/posts_by_tag.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        tag_slug = self.kwargs.get('tag_slug')
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        return Post.objects.filter(tags__in=[tag]).distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tag'] = self.kwargs.get('tag_slug')
+        return context
+    
 class CommentCreateView(CreateView):
     model = Comment
     fields = ['content']
