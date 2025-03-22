@@ -4,7 +4,7 @@ from django.contrib import messages
 from django import forms
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
-from .models import UserProfile, Post
+from .models import UserProfile, Post, Comment
 from .forms import ProfileUpdateForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -69,3 +69,26 @@ class PostDeleteView(DeleteView):
     def test_func(self):
         post = self.get_object()
         return self.request.user == post.author
+    
+class CommentCreateView(CreateView):
+    model = Comment
+    fields = ['content']
+    template_name = 'blog/comment_form.html' # Path to the template
+    
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.post = Post.objects.get(id=self.kwargs['pk'])
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse('post-detail', kwargs={'pk': self.kwargs['pk']})
+    
+class CommentUpdateView(UpdateView):
+    model = Comment
+    fields = ['content']
+    template_name = 'blog/comment_form.html' # Path to the template
+    
+class CommentDeleteView(DeleteView):
+    model = Comment
+    fields = ['content']
+    template_name = 'blog/comment_confirm_delete.html' # Path to the template
