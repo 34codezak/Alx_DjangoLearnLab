@@ -23,3 +23,11 @@ class ProfileView(APIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
+
+from django.http import JsonResponse
+
+def follow_user(request):
+    return JsonResponse({"message": "Follow user functionality"})
+
+def unfollow_user(request):
+    return JsonResponse({"message": "Unfollow user functionality"})
