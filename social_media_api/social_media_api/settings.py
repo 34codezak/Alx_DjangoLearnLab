@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -154,3 +155,10 @@ CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 31536000  # 1 year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
+
+# Static files (CSS, JavaScript, images)
+STATIC_URL = '/static/'
+
+if not os.getenv('USE_S3', 'False') == 'True':
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # If using local static files
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # For collectstatic in production
