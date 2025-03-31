@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import CustomUser
+from django.contrib.auth.models import AbstractUser
 
 class Post(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='posts')

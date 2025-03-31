@@ -1,9 +1,13 @@
 from rest_framework.generics import CreateAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated
-from .models import CustomUser
+from rest_framework.permissions import AllowAny
 from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+
+def some_view_function():
+    from accounts.models import CustomUser 
 
 class RegisterView(CreateAPIView):
     queryset = CustomUser.objects.all()
@@ -25,9 +29,22 @@ class ProfileView(APIView):
         return Response(serializer.data)
 
 from django.http import JsonResponse
-
 def follow_user(request):
     return JsonResponse({"message": "Follow user functionality"})
 
 def unfollow_user(request):
     return JsonResponse({"message": "Unfollow user functionality"})
+
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics
+from accounts.models import User
+
+class FollowUserView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        user_to_follow = User.objects.get(id=kwargs.get("user_id"))
+        request.user.following.add(user_to_follow)
+        return Response({"message": "User followed successfully"})
