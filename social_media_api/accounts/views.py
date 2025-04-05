@@ -13,7 +13,7 @@ class RegisterView(CreateAPIView):
     serializer_class = RegisterSerializer
     permission_classes = [AllowAny]
 
-class LoginView(APIView):
+class LoginView(permissions.IsAuthenticated):
     permission_classes = [AllowAny]
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
