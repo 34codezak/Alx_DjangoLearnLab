@@ -6,6 +6,7 @@ from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from accounts.models import CustomUser
+from .models import Notification
 
 class RegisterView(CreateAPIView):
     queryset = CustomUser.objects.all()
