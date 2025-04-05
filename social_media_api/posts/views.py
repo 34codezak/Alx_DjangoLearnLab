@@ -26,6 +26,13 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+        
+@api_view(['GET'])
+def user_feed(request):
+    following_users = request.user.following.all()
+    posts = Post.objects.filter(author__in=following_users).order_by('-created_at')
+    return Response({'posts': [post.title for post in posts]})
+
 
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated])
